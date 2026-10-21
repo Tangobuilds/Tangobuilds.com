@@ -15,6 +15,6 @@
 ## Claude, when Tobias is ready
 - [ ] Add a `CNAME` file once the domain is bought and DNS is set (not before, or the github.io address stops working)
 - [ ] Set up the shop for Pathfinder (Lemon Squeezy or Paddle) and link the Buy and trial buttons
-- [ ] Link the real game links: Roblox (Contraband Empire), www.spotrep.net (Spotrep), Steam page (Dead Man's Mine)
+- [ ] Link the real game links: www.spotrep.net (Spotrep)
 - [ ] Add real screenshots or videos to each project page
 - [ ] Add a favicon, social sharing image and a 404 page
