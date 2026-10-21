@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/url';
+---
+
+<Base title="Page not found · Tangobuilds" description="This page doesn't exist.">
+  <main id="main" class="nf wrap">
+    <p class="code">404</p>
+    <h1>Nothing here but tumbleweed.</h1>
+    <p>The page you were looking for has moved or never existed.</p>
+    <a class="btn btn-primary" href={url('')}>Back to Tangobuilds <span class="arrow">→</span></a>
+  </main>
+</Base>
+
+<style>
+  .nf { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 1rem; padding-block: 8rem 4rem; }
+  .code { font-family: var(--mono); color: var(--tango); margin: 0; letter-spacing: .2em; }
+  h1 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: clamp(2.6rem, 8vw, 5rem); line-height: .95; margin: 0; max-width: 14ch; }
+  p { color: var(--muted); margin: 0 0 1rem; }
+</style>

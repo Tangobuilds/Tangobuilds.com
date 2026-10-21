@@ -1,0 +1,208 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectNav from '../../components/ProjectNav.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { url } from '../../lib/url';
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/figtree';
+
+const features = [
+  ['Reads your files', "Text and titles in PDFs, dates in photos, titles in Office files, and text in screenshots and scans with Windows' built-in OCR."],
+  ['Learns your habits', 'Move an invoice to "Accounts" and the next ones go there too. After three of the same choice it offers to do it automatically.'],
+  ['Cleans up', "Finds duplicates, installers for programs you already have, unpacked zips and big files you haven't touched in six months. Everything goes to the Recycle Bin."],
+  ['Undo anything', 'Ctrl+Z, the Undo button or the History page. Automatic sorting can be undone too.'],
+  ['Converts files', 'Images, audio, video and PDF, many at a time. The originals are never touched.'],
+  ['Builds a folder structure', 'No folders yet? Pathfinder suggests Finance, Home, Work, School and more, and reuses the folders you already have.'],
+];
+
+// The demo inbox: each file is approved in turn and drops into its folder.
+const files = [
+  { from: 'scan0042.pdf', to: '2026-09 Electricity invoice.pdf', folder: 'Finance', why: 'Read from the PDF: invoice, date, supplier' },
+  { from: 'IMG_8817.HEIC', to: '2026-08-14 Skagen.heic', folder: 'Photos', why: 'Date and place from the photo' },
+  { from: 'Screenshot 2026-10-02.png', to: 'Receipt Bauhaus 2026-10-02.png', folder: 'Finance', why: 'OCR found a receipt total' },
+  { from: 'setup_x64 (3).exe', to: 'Already installed', folder: 'Recycle Bin', why: 'You already have this program' },
+];
+const folders = ['Finance', 'Photos', 'Work', 'Recycle Bin'];
+---
+
+<Base title="Pathfinder · Tangobuilds" description="Pathfinder turns your Downloads folder into an inbox. Every file gets a suggested name and folder, and you approve with one key." theme="theme-pf">
+  <main id="main">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="copy">
+          <p class="ver"><img src={url('assets/pathfinder-icon.png')} alt="" width="22" height="22" />Pathfinder 1.6 · Windows · English / Dansk</p>
+          <h1>Your Downloads folder, <em>sorted.</em></h1>
+          <p class="lead">Pathfinder turns the mess into an inbox. Every file gets a suggested name and folder based on what's inside it. You approve with one key.</p>
+          <div class="actions">
+            <span class="btn btn-soon">Available soon</span>
+            <a class="btn btn-ghost" href="#features">See what it does</a>
+          </div>
+        </div>
+
+        <div class="app" transition:name="visual-pathfinder" aria-label="Animated example of the Pathfinder inbox" role="img">
+          <div class="titlebar"><span></span><span></span><span></span><b>Pathfinder</b></div>
+          <div class="body">
+            <aside>
+              {folders.map((f) => <div class="folder" data-folder={f}><i></i>{f}<em>0</em></div>)}
+            </aside>
+            <div class="inbox" data-inbox>
+              {files.map((f, i) => (
+                <div class="file" data-file={i} data-target={f.folder}>
+                  <span class="from">Downloads\{f.from}</span>
+                  <span class="to"><b>{f.folder}\</b>{f.to}</span>
+                  <span class="why">{f.why}</span>
+                  <div class="keys"><kbd>Approve ↵</kbd><kbd>Edit E</kbd><kbd>Skip S</kbd></div>
+                </div>
+              ))}
+              <p class="done">Inbox zero. Nice.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="wrap">
+        <h2 data-reveal>Everything it does, <em>quietly.</em></h2>
+        <div class="feature-grid">
+          {features.map(([h, p], i) => (
+            <div class="feature" data-reveal data-delay={(i % 3) * 100}>
+              <span class="tick" aria-hidden="true">✓</span>
+              <h3>{h}</h3>
+              <p>{p}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="buy">
+      <div class="wrap">
+        <div class="buy-card" data-reveal="scale">
+          <div>
+            <h2>Get Pathfinder</h2>
+            <p>One-time purchase for Windows. Price and free trial coming soon.</p>
+          </div>
+          <span class="btn btn-soon">Available soon</span>
+        </div>
+      </div>
+    </section>
+  </main>
+  <ProjectNav slug="pathfinder" />
+  <SiteFooter />
+</Base>
+
+<script>
+  // Inbox demo: approve the top file, slide it toward its folder, bump the count, repeat.
+  function runInbox() {
+    const inbox = document.querySelector<HTMLElement>('[data-inbox]');
+    if (!inbox) return;
+    const files = [...inbox.querySelectorAll<HTMLElement>('[data-file]')];
+    const counts = new Map<string, HTMLElement>();
+    document.querySelectorAll<HTMLElement>('[data-folder]').forEach((f) => counts.set(f.dataset.folder!, f));
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let i = 0;
+    let timer = 0;
+    const reset = () => {
+      files.forEach((f) => f.classList.remove('approving', 'gone'));
+      counts.forEach((f) => { f.querySelector('em')!.textContent = '0'; f.classList.remove('hit'); });
+      inbox.classList.remove('empty');
+      i = 0;
+    };
+    const step = () => {
+      if (i >= files.length) {
+        inbox.classList.add('empty');
+        timer = window.setTimeout(() => { reset(); timer = window.setTimeout(step, 1400); }, 2600);
+        return;
+      }
+      const f = files[i];
+      f.classList.add('approving');
+      timer = window.setTimeout(() => {
+        f.classList.add('gone');
+        const folder = counts.get(f.dataset.target!);
+        if (folder) {
+          const em = folder.querySelector('em')!;
+          em.textContent = String(Number(em.textContent) + 1);
+          folder.classList.remove('hit'); void folder.offsetWidth; folder.classList.add('hit');
+        }
+        i++;
+        timer = window.setTimeout(step, 900);
+      }, 900);
+    };
+    timer = window.setTimeout(step, 1600);
+    document.addEventListener('astro:before-swap', () => clearTimeout(timer), { once: true });
+  }
+  document.addEventListener('astro:page-load', runInbox);
+</script>
+
+<style>
+  :global(body.theme-pf) {
+    --page-bg: #f4f7f5; --page-fg: #16201d;
+    --hdr-fg: #16201d; --hdr-bg: rgba(244,247,245,.82); --hdr-line: #dbe2df;
+    --ftr-line: #dbe2df; --ftr-fg: #5d6b66; --ftr-strong: #16201d;
+    --pf-accent: #1f7a5c; --pf-soft: #e1f0ea; --pf-line: #dbe2df; --pf-muted: #5d6b66;
+    font-family: 'Figtree Variable', system-ui, 'Segoe UI', sans-serif;
+    color-scheme: light;
+  }
+  :global(body.theme-pf ::selection) { background: #1f7a5c; color: #fff; }
+  h1, h2, h3 { font-family: 'Fraunces Variable', Georgia, serif; font-weight: 600; }
+  em { font-style: italic; color: var(--pf-accent); }
+  .btn { border-radius: 10px; }
+  .btn-ghost { color: var(--pf-accent); }
+  .btn-soon { color: var(--pf-accent); }
+
+  .hero { padding-block: 8rem 5rem; background: radial-gradient(ellipse at 80% 10%, #d6efe4, transparent 55%); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 3.5rem; align-items: center; }
+  @media (max-width: 900px) { .hero-grid { grid-template-columns: minmax(0, 1fr); } }
+  .ver { display: inline-flex; align-items: center; gap: .5rem; font-size: .85rem; color: var(--pf-muted); margin: 0; font-weight: 500; }
+  .ver img { width: 22px; height: 22px; }
+  h1 { font-size: clamp(2.8rem, 6.5vw, 4.8rem); line-height: 1; margin: 1rem 0 1.25rem; text-wrap: balance; letter-spacing: -.01em; }
+  .lead { font-size: 1.2rem; color: var(--pf-muted); max-width: 32rem; margin: 0 0 2rem; }
+  .actions { display: flex; gap: .8rem; flex-wrap: wrap; }
+
+  .app { background: #fff; border: 1px solid var(--pf-line); border-radius: 14px; box-shadow: 0 40px 80px -40px rgba(20,50,40,.45); overflow: hidden; min-width: 0; }
+  .titlebar { display: flex; align-items: center; gap: .4rem; padding: .6rem .9rem; border-bottom: 1px solid var(--pf-line); background: #fafcfb; }
+  .titlebar span { width: .65rem; height: .65rem; border-radius: 50%; background: #d7dfdb; }
+  .titlebar b { margin-left: .5rem; font-size: .82rem; font-weight: 600; color: var(--pf-muted); }
+  .body { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); min-height: 21rem; }
+  @media (max-width: 480px) { .body { grid-template-columns: minmax(0, 1fr); } aside { display: none !important; } }
+  aside { border-right: 1px solid var(--pf-line); padding: .75rem .5rem; display: flex; flex-direction: column; gap: .2rem; background: #fafcfb; }
+  .folder { display: flex; align-items: center; gap: .5rem; font-size: .85rem; padding: .45rem .5rem; border-radius: 6px; }
+  .folder i { width: .9rem; height: .7rem; background: #e9c46a; border-radius: 2px; position: relative; }
+  .folder i::before { content: ''; position: absolute; left: 0; top: -.15rem; width: .45rem; height: .2rem; background: #e9c46a; border-radius: 2px 2px 0 0; }
+  .folder em { margin-left: auto; font-style: normal; font-size: .75rem; color: var(--pf-muted); font-variant-numeric: tabular-nums; }
+  .folder.hit { animation: hit .6s var(--ease-out); }
+  @keyframes hit { 0% { background: var(--pf-soft); transform: scale(1); } 40% { transform: scale(1.06); } 100% { background: transparent; transform: scale(1); } }
+  .inbox { position: relative; padding: .9rem; display: flex; flex-direction: column; gap: .6rem; min-width: 0; }
+  .file { border: 1px solid var(--pf-line); border-radius: 9px; padding: .75rem .9rem; display: flex; flex-direction: column; gap: .25rem; min-width: 0; background: #fff; transition: transform .7s var(--ease-out), opacity .5s, max-height .6s var(--ease-out), padding .6s, margin .6s, border-color .3s, box-shadow .3s; max-height: 10rem; }
+  .from { font-family: ui-monospace, Consolas, monospace; font-size: .74rem; color: #8a9893; text-decoration: line-through; overflow-wrap: anywhere; }
+  .to { font-family: ui-monospace, Consolas, monospace; font-size: .8rem; overflow-wrap: anywhere; }
+  .to b { color: var(--pf-accent); font-weight: 500; }
+  .why { font-size: .76rem; color: var(--pf-muted); }
+  .keys { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: .2rem; }
+  kbd { font-family: inherit; font-size: .72rem; padding: .15rem .5rem; border-radius: 5px; background: var(--pf-soft); }
+  .file:not(:first-child) .keys { display: none; }
+  .file.approving { border-color: var(--pf-accent); box-shadow: 0 0 0 3px rgba(31,122,92,.15); }
+  .file.approving kbd:first-child { background: var(--pf-accent); color: #fff; }
+  .file.gone { transform: translateX(-60%) scale(.8); opacity: 0; max-height: 0; padding-block: 0; margin-block: -.3rem; border-width: 0; }
+  .done { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; font-family: 'Fraunces Variable', Georgia, serif; font-size: 1.4rem; color: var(--pf-accent); opacity: 0; transition: opacity .5s; pointer-events: none; }
+  .inbox.empty .done { opacity: 1; }
+
+  .features { padding-block: 5rem; }
+  .features h2 { font-size: clamp(2rem, 4.5vw, 3.2rem); margin: 0 0 3rem; max-width: 20ch; }
+  .feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+  @media (max-width: 900px) { .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { .feature-grid { grid-template-columns: minmax(0, 1fr); } }
+  .feature { background: #fff; border: 1px solid var(--pf-line); border-radius: 14px; padding: 1.5rem; transition: transform .4s var(--ease-out), box-shadow .4s; }
+  .feature:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -24px rgba(20,50,40,.35); }
+  .tick { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--pf-soft); color: var(--pf-accent); font-weight: 700; }
+  .feature h3 { font-size: 1.3rem; margin: 1rem 0 .4rem; }
+  .feature p { margin: 0; color: var(--pf-muted); }
+
+  .buy { padding-block: 1rem 6rem; }
+  .buy-card { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; background: linear-gradient(120deg, #1f7a5c, #134d3b); color: #fff; border-radius: 20px; padding: clamp(1.75rem, 4vw, 3rem); }
+  .buy-card h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0 0 .35rem; }
+  .buy-card p { margin: 0; opacity: .85; }
+  .buy-card .btn-soon { color: #fff; }
+</style>
