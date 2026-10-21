@@ -1,7 +1,7 @@
 # To-do
 
 ## Tobias
-- [ ] Turn on GitHub Pages: [Settings → Pages](https://github.com/Tangobuilds/tangobuilds.com/settings/pages) → Source: **Deploy from a branch** → **main** / **(root)** → Save. The site then shows at https://tangobuilds.github.io/tangobuilds.com/
+- [ ] Turn on GitHub Pages: [Settings → Pages](https://github.com/Tangobuilds/Tangobuilds.com/settings/pages) → Source: **Deploy from a branch** → **main** / **(root)** → Save. The site then shows at https://tangobuilds.github.io/Tangobuilds.com/
 - [ ] Buy the domain tangobuilds.com (and tangobuilds.dk, so nobody else takes it)
 - [ ] Check that the company name Tangobuilds is free on virk.dk before registering the company
 - [ ] Point the domain at GitHub Pages at your domain registrar:
