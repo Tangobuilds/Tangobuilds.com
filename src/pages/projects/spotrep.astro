@@ -46,6 +46,31 @@ const play = 'https://www.spotrep.net';
       </div>
     </section>
 
+    <section class="inaction">
+      <div class="wrap">
+        <div class="ia-head" data-reveal>
+          <p class="class">In the game</p>
+          <h2>Twenty-one seconds left. What is it?</h2>
+        </div>
+        <div class="shots">
+          <figure data-reveal="scale">
+            <div class="browser">
+              <div class="chrome" aria-hidden="true"><span></span><span></span><span></span><b>spotrep.net</b></div>
+              <img src={url('assets/spotrep-gameplay.webp')} alt="A Spotrep round: a photo of an eight-wheeled armoured vehicle, a timer with 21 seconds left, and category buttons for tanks, IFVs, APCs, artillery, air defence, helicopters, jets and drones." width="1074" height="494" loading="lazy" decoding="async" />
+            </div>
+            <figcaption><span class="mode">Classic challenge</span><b>The round.</b> Pick a category, type or browse to the model, and lock in before the clock runs out.</figcaption>
+          </figure>
+          <figure data-reveal="scale" data-delay="150">
+            <div class="browser">
+              <div class="chrome" aria-hidden="true"><span></span><span></span><span></span><b>spotrep.net</b></div>
+              <img src={url('assets/spotrep-reveal.webp')} alt="The reveal after a round: the L115A3 sniper rifle, with its type, origin, users, tell-tale features and links to the field guide." width="1072" height="728" loading="lazy" decoding="async" />
+            </div>
+            <figcaption><span class="mode">Infantry weapons</span><b>The reveal.</b> Every answer shows the model's tell-tales, who uses it and where to learn more, so you get better each round.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
     <section class="report" id="report">
       <div class="wrap">
         <div class="sheet" data-reveal>
@@ -82,7 +107,7 @@ const play = 'https://www.spotrep.net';
     </section>
   </main>
   <ProjectNav slug="spotrep" />
-  <SiteFooter credit="Photo: Leopard 2A7, U.S. Army (105th MPAD), public domain, via Wikimedia Commons." />
+  <SiteFooter credit="Photos via Wikimedia Commons: Leopard 2A7 by U.S. Army (105th MPAD), public domain. Boxer and L115A3 in the game screenshots by Ministerie van Defensie, CC BY-SA 4.0." />
 </Base>
 
 <script>
@@ -143,6 +168,23 @@ const play = 'https://www.spotrep.net';
   .timer.low { color: var(--sr-red); }
   .q { position: absolute; z-index: 2; left: 50%; bottom: 1rem; transform: translateX(-50%); font-family: var(--stencil); font-size: clamp(1rem, 2.6vw, 1.5rem); letter-spacing: .08em; color: var(--sr-amber); background: rgba(28,32,22,.85); padding: .2rem .8rem; white-space: nowrap; }
   .ref { position: absolute; z-index: 2; top: .9rem; left: 1rem; font-family: 'JetBrains Mono', monospace; font-size: .78rem; color: var(--sr-tan); }
+
+  .inaction { padding-block: 2rem 4rem; }
+  .ia-head { margin-bottom: 1.75rem; }
+  .ia-head h2 { font-family: var(--cond); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; font-size: clamp(1.8rem, 4.5vw, 3rem); line-height: 1; margin: .5rem 0 0; text-wrap: balance; }
+  .shots { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+  @media (max-width: 900px) { .shots { grid-template-columns: minmax(0, 1fr); } }
+  .shots figure { margin: 0; min-width: 0; }
+  .shots figure:nth-child(2) { margin-top: 3rem; }
+  @media (max-width: 900px) { .shots figure:nth-child(2) { margin-top: 0; } }
+  figcaption { margin-top: .9rem; color: #c9c0a2; max-width: 34rem; }
+  figcaption b { color: var(--sr-paper); }
+  .mode { display: block; width: fit-content; margin-bottom: .4rem; font-family: 'JetBrains Mono', monospace; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--sr-amber); border: 1px solid currentColor; border-radius: 3px; padding: .15rem .5rem; }
+  .browser { border: 1px solid rgba(200,184,138,.35); border-radius: 10px; overflow: hidden; background: #171a12; box-shadow: 0 50px 90px -40px rgba(0,0,0,.8); }
+  .chrome { display: flex; align-items: center; gap: .4rem; padding: .6rem .9rem; border-bottom: 1px solid rgba(200,184,138,.2); background: #20241a; }
+  .chrome span { width: .65rem; height: .65rem; border-radius: 50%; background: #474d3a; }
+  .chrome b { margin-left: .75rem; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: .75rem; color: var(--sr-tan); background: #171a12; padding: .2rem .8rem; border-radius: 999px; }
+  .browser img { width: 100%; height: auto; }
 
   .report { padding-block: 3rem 5rem; }
   .sheet { background: var(--sr-paper); color: #24261b; padding: clamp(1.25rem, 4vw, 2.5rem); border-radius: 3px; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); position: relative; }
