@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <title>Dust &amp; Deputies · Tangobuilds</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rye&family=Zilla+Slab:wght@400;600;700&display=swap">
 <style>
@@ -43,12 +44,22 @@ a { color: inherit; }
 .btn[aria-disabled="true"] { opacity: .65; cursor: not-allowed; }
 .cta small { display: block; margin-top: .75rem; color: #bdb8a0; }
 footer { background: var(--night); color: #8e8a77; border-top: 1px solid #2b2b48; padding-block: 1.5rem; font-size: .9rem; text-align: center; }
+
+.tb-bar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-block: 1rem; font-size: .92rem; }
+.tb-bar a { text-decoration: none; opacity: .8; }
+.tb-bar a:hover { opacity: 1; text-decoration: underline; }
+.tb-bar .tb-logo { font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: 1; }
+.tb-next { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-block: 2rem; }
+.tb-next a { text-decoration: none; display: flex; flex-direction: column; gap: .15rem; font-weight: 600; font-size: 1.1rem; }
+.tb-next a:last-child { text-align: right; margin-left: auto; }
+.tb-next small { font-weight: 400; font-size: .8rem; opacity: .7; text-transform: uppercase; letter-spacing: .1em; }
+.btn.soon { background: transparent !important; color: inherit !important; border-style: dashed !important; cursor: default; box-shadow: none !important; opacity: .85; transform: none !important; }
 </style>
 </head>
 <body>
 <div class="day">
   <div class="wrap">
-    <a class="back" href="../index.html">← Tangobuilds</a>
+    <nav class="tb-bar" aria-label="Site"><a class="tb-logo" href="../index.html">Tangobuilds</a><a href="../index.html#games">All projects</a></nav>
     <div class="poster">
       <p class="wanted">WANTED</p>
       <h1>Dust &amp; Deputies</h1>
@@ -93,11 +104,12 @@ footer { background: var(--night); color: #8e8a77; border-top: 1px solid #2b2b48
       <div class="mode"><h3>Endless</h3><div class="num">∞ nights</div><p>A roguelike run on generated maps with blessings, contracts and leaderboards.</p></div>
     </div>
     <div class="cta">
-      <a class="btn" href="#" aria-disabled="true">Follow development</a>
-      <small>Working title. Early prototype.</small>
+      <span class="btn soon">In development</span>
+      <small>Working title. Early prototype, PC first.</small>
     </div>
   </div>
 </div>
+<nav class="wrap tb-next" aria-label="More projects"><a href="dead-mans-mine.html"><small>← Previous</small>Dead Man's Mine</a><a href="pathfinder.html"><small>Next →</small>Pathfinder</a></nav>
 <footer><div class="wrap">© 2026 Tangobuilds</div></footer>
 </body>
 </html>
