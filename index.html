@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Tangobuilds is an independent studio in Denmark making games and Windows tools.">
+<title>Tangobuilds</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a workshop "build board". Call-sign hero, then one row per project with its build status, platform and how to get it. */
+:root {
+  --bg: #eef0f3;
+  --surface: #ffffff;
+  --ink: #15203a;
+  --muted: #5a6478;
+  --line: #d3d8e1;
+  --accent: #d9531e;        /* tango orange */
+  --accent-ink: #ffffff;
+  --chip-proto: #7a5a00; --chip-proto-bg: #fbefc8;
+  --chip-beta: #0f5d3a;  --chip-beta-bg: #d4f0e1;
+  --chip-live: #12408a;  --chip-live-bg: #dbe6fb;
+  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1524; --surface: #172036; --ink: #e8ecf4; --muted: #9aa5ba; --line: #2a3550;
+  --accent: #f06a33; --accent-ink: #10131c;
+  --chip-proto: #f5d77a; --chip-proto-bg: #3a3112;
+  --chip-beta: #8fe0b6;  --chip-beta-bg: #133628;
+  --chip-live: #a9c4f7;  --chip-live-bg: #1b2c50;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1524; --surface: #172036; --ink: #e8ecf4; --muted: #9aa5ba; --line: #2a3550;
+  --accent: #f06a33; --accent-ink: #10131c;
+  --chip-proto: #f5d77a; --chip-proto-bg: #3a3112;
+  --chip-beta: #8fe0b6;  --chip-beta-bg: #133628;
+  --chip-live: #a9c4f7;  --chip-live-bg: #1b2c50;
+  color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 1rem; line-height: 1.6; }
+.wrap { max-width: 68rem; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+header.top { border-bottom: 1px solid var(--line); }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1rem; flex-wrap: wrap; }
+.logo { font-family: var(--display); font-weight: 800; font-size: 1.6rem; letter-spacing: .02em; text-transform: uppercase; text-decoration: none; }
+.logo span { color: var(--accent); }
+nav { display: flex; gap: 1.25rem; font-size: .9rem; flex-wrap: wrap; }
+nav a { text-decoration: none; color: var(--muted); }
+nav a:hover { color: var(--ink); }
+
+.hero .wrap { padding-block: 4rem 3rem; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: end; }
+.callsign { font-family: var(--mono); font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 1rem; }
+.hero h1 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: clamp(3rem, 9vw, 6.5rem); line-height: .9; margin: 0; text-wrap: balance; }
+.hero p.lead { max-width: 34rem; font-size: 1.15rem; color: var(--muted); margin: 1.5rem 0 0; }
+.bigT { font-family: var(--display); font-weight: 800; font-size: clamp(6rem, 18vw, 13rem); line-height: .8; color: var(--accent); user-select: none; }
+@media (max-width: 640px) { .hero .wrap { grid-template-columns: 1fr; } .bigT { display: none; } }
+
+section.board .wrap { padding-block: 1rem 4rem; }
+.board-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; border-bottom: 2px solid var(--ink); padding-bottom: .5rem; flex-wrap: wrap; }
+.board-head h2 { font-family: var(--display); font-weight: 600; text-transform: uppercase; font-size: 1.6rem; letter-spacing: .03em; margin: 0; }
+.board-head span { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+
+.project { display: grid; grid-template-columns: 11rem minmax(0, 1fr) 13rem; gap: 1.5rem 2rem; padding-block: 2rem; border-bottom: 1px solid var(--line); }
+.project .meta { font-family: var(--mono); font-size: .78rem; color: var(--muted); display: flex; flex-direction: column; gap: .35rem; }
+.project h3 a { text-decoration: none; }
+.project h3 a:hover { color: var(--accent); }
+.project h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 2.2rem; line-height: 1; margin: 0 0 .5rem; letter-spacing: .01em; }
+.project .tag { font-weight: 500; margin: 0 0 .75rem; }
+.project p { margin: 0; max-width: 40rem; color: var(--muted); }
+.project ul { margin: .75rem 0 0; padding-left: 1.1rem; color: var(--muted); max-width: 40rem; }
+.chip { display: inline-block; width: fit-content; font-family: var(--mono); font-size: .72rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; padding: .2rem .55rem; border-radius: 3px; }
+.chip.proto { color: var(--chip-proto); background: var(--chip-proto-bg); }
+.chip.beta  { color: var(--chip-beta);  background: var(--chip-beta-bg); }
+.chip.live  { color: var(--chip-live);  background: var(--chip-live-bg); }
+.get { display: flex; flex-direction: column; gap: .5rem; align-items: stretch; }
+.btn { display: block; text-align: center; font-weight: 600; font-size: .92rem; padding: .7rem 1rem; border-radius: 4px; text-decoration: none; border: 1.5px solid var(--ink); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
+.get small { font-size: .78rem; color: var(--muted); text-align: center; }
+@media (max-width: 860px) { .project { grid-template-columns: minmax(0, 1fr); } .project .meta { flex-direction: row; flex-wrap: wrap; gap: .5rem 1rem; } }
+
+section.about { background: var(--surface); border-block: 1px solid var(--line); }
+section.about .wrap { padding-block: 3rem; display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 2rem; }
+section.about h2 { font-family: var(--display); font-weight: 600; text-transform: uppercase; font-size: 1.6rem; margin: 0; }
+section.about p { max-width: 40rem; margin: 0 0 1rem; color: var(--muted); }
+@media (max-width: 640px) { section.about .wrap { grid-template-columns: 1fr; gap: 1rem; } }
+
+footer .wrap { padding-block: 2rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: .78rem; color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) { .btn { transition: transform .15s ease; } .btn:hover:not([aria-disabled="true"]) { transform: translateY(-2px); } }
+</style>
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top">Tango<span>builds</span></a>
+    <nav aria-label="Main">
+      <a href="#games">Games</a>
+      <a href="#software">Software</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <p class="callsign">T · Tango · Independent studio, Denmark</p>
+      <h1>Games and tools, built one at a time.</h1>
+      <p class="lead">Westerns with teeth, a Roblox trading empire, a daily spotting game for the armour nerds, and a Windows app that finally tames your Downloads folder.</p>
+    </div>
+    <div class="bigT" aria-hidden="true">T</div>
+  </div>
+</section>
+
+<section class="board" id="games">
+  <div class="wrap">
+    <div class="board-head"><h2>Games</h2><span>4 projects</span></div>
+
+    <article class="project" id="contraband-empire">
+      <div class="meta"><span class="chip beta">Beta</span><span>Roblox</span><span>Multiplayer, up to 6</span></div>
+      <div>
+        <h3><a href="projects/contraband-empire.html">Contraband Empire</a></h3>
+        <p class="tag">Buy low, smuggle high, build an empire.</p>
+        <p>A multiplayer trading tycoon on Roblox. Run your base, move goods between markets and outgrow the other players on the server.</p>
+      </div>
+      <div class="get">
+        <a class="btn ghost" href="projects/contraband-empire.html">See the game →</a>
+        <a class="btn primary" href="#contraband-empire" aria-disabled="true">Play on Roblox</a>
+        <small>Free to play. Link goes live with the public beta.</small>
+      </div>
+    </article>
+
+    <article class="project" id="spotrep">
+      <div class="meta"><span class="chip live">Web</span><span>Browser, phone</span><span>Daily challenge</span></div>
+      <div>
+        <h3><a href="projects/spotrep.html">Spotrep</a></h3>
+        <p class="tag">Name that vehicle before the clock runs out.</p>
+        <p>A daily recognition game for military equipment. One new challenge every day, practice rounds, a field guide and leaderboards, with more than 300 vehicles and aircraft.</p>
+        <ul><li>Free: the daily challenge and 5 practice games a day</li><li>Pro: unlimited play</li></ul>
+      </div>
+      <div class="get">
+        <a class="btn ghost" href="projects/spotrep.html">See the game →</a>
+        <a class="btn primary" href="#spotrep" aria-disabled="true">Play in your browser</a>
+      </div>
+    </article>
+
+    <article class="project" id="dead-mans-mine">
+      <div class="meta"><span class="chip proto">Prototype</span><span>PC · Steam</span><span>1–3 players</span></div>
+      <div>
+        <h3><a href="projects/dead-mans-mine.html">Dead Man's Mine</a></h3>
+        <p class="tag">Something woke up under the claim.</p>
+        <p>Western horror in third person. Head down into an abandoned mine with a six-shot revolver, solve what the foreman left behind and deal with the Taken. Single-player first, co-op for up to three.</p>
+      </div>
+      <div class="get">
+        <a class="btn ghost" href="projects/dead-mans-mine.html">See the game →</a>
+        <a class="btn primary" href="#dead-mans-mine" aria-disabled="true">Wishlist on Steam</a>
+        <small>Steam page coming soon.</small>
+      </div>
+    </article>
+
+    <article class="project" id="dust-and-deputies">
+      <div class="meta"><span class="chip proto">Prototype</span><span>PC</span><span>Working title</span></div>
+      <div>
+        <h3><a href="projects/dust-and-deputies.html">Dust &amp; Deputies</a></h3>
+        <p class="tag">Hold the town till sunrise.</p>
+        <p>Top-down western action mixed with tower defense and extraction. Build watchtowers and barricades by day, fight off bandits by night, and get out with the loot.</p>
+      </div>
+      <div class="get">
+        <a class="btn ghost" href="projects/dust-and-deputies.html">See the game →</a>
+        <small>In early prototype.</small>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="board" id="software">
+  <div class="wrap">
+    <div class="board-head"><h2>Software</h2><span>1 project</span></div>
+    <article class="project" id="pathfinder">
+      <div class="meta"><span class="chip live">v1.6</span><span>Windows</span><span>English · Dansk</span></div>
+      <div>
+        <h3><a href="projects/pathfinder.html">Pathfinder</a></h3>
+        <p class="tag">Your Downloads folder, turned into an inbox.</p>
+        <p>Pathfinder reads your files and suggests a name and a folder for each one: invoices to Finance, screenshots of receipts too. Approve with one click, and it learns from your choices.</p>
+        <ul><li>Reads text in PDFs, photos and screenshots</li><li>Finds duplicates and leftover installers</li><li>Everything can be undone</li></ul>
+      </div>
+      <div class="get">
+        <a class="btn ghost" href="projects/pathfinder.html">See the app →</a>
+        <a class="btn primary" href="#pathfinder" aria-disabled="true">Buy Pathfinder</a>
+        <small>Price to be set.</small>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <h2>About</h2>
+    <div>
+      <p>Tangobuilds is a one-person studio in Denmark run by Tobias. I make games in Unity and Roblox, web games, and small Windows tools I wanted for myself.</p>
+      <p>Contact: hello@tangobuilds.com</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><span>© 2026 Tangobuilds</span><span>tangobuilds.com</span></div>
+</footer>
+
+</body>
+</html>

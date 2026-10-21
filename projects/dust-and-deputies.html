@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dust &amp; Deputies · Tangobuilds</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rye&family=Zilla+Slab:wght@400;600;700&display=swap">
+<style>
+/* Layout: a wanted poster at high noon that turns to night halfway down. Day = build, night = defend. Single look by choice. */
+:root {
+  color-scheme: light;
+  --sky: #f3c77a; --sand: #e9b46a; --paper: #f6e7c8; --ink: #2b1a10; --rust: #a8401f; --night: #18182e; --moon: #e8e2c8; --muted: #6b4a33;
+  --display: "Rye", "Rockwell", Georgia, serif;
+  --body: "Zilla Slab", "Rockwell", Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--sand); color: var(--ink); font-family: var(--body); font-size: 1.1rem; line-height: 1.6; }
+.wrap { max-width: 60rem; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--rust); outline-offset: 3px; }
+.day { background: linear-gradient(var(--sky), var(--sand)); }
+.back { display: inline-block; padding-block: 1.25rem; font-weight: 600; text-decoration: none; }
+.poster { background: var(--paper); border: 3px solid var(--ink); max-width: 34rem; margin: 2rem auto 4rem; padding: 2rem 1.5rem 2.5rem; text-align: center; box-shadow: 8px 8px 0 var(--ink); transform: rotate(-1deg); }
+.poster .wanted { font-family: var(--display); font-size: clamp(2.5rem, 10vw, 4rem); line-height: 1; color: var(--rust); margin: 0; letter-spacing: .04em; }
+.poster h1 { font-family: var(--display); font-weight: 400; font-size: clamp(2rem, 8vw, 3.2rem); line-height: 1.05; margin: 1rem 0; text-wrap: balance; }
+.poster .reward { font-weight: 700; text-transform: uppercase; letter-spacing: .12em; border-block: 2px solid var(--ink); padding-block: .5rem; margin: 1.25rem 0; }
+.poster p { margin: 0; color: var(--muted); }
+.half { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 2.5rem; padding-block: 3rem; }
+@media (max-width: 720px) { .half { grid-template-columns: minmax(0,1fr); } }
+.half h2 { font-family: var(--display); font-weight: 400; font-size: 2rem; margin: 0 0 .5rem; }
+.half .when { font-weight: 700; text-transform: uppercase; letter-spacing: .14em; font-size: .85rem; color: var(--rust); }
+.half ul { padding-left: 1.2rem; margin: .5rem 0 0; }
+.night { background: var(--night); color: var(--moon); }
+.night .when { color: #f08a5d; }
+.modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1.5rem; padding-block: 0 3rem; }
+.mode { border: 1px solid #3b3b5c; padding: 1.25rem 1.5rem; }
+.mode h3 { font-family: var(--display); font-weight: 400; font-size: 1.5rem; margin: 0 0 .25rem; }
+.mode .num { font-size: 2.2rem; font-weight: 700; font-variant-numeric: tabular-nums; color: #f08a5d; line-height: 1; }
+.mode p { margin: .5rem 0 0; color: #bdb8a0; }
+.cta { text-align: center; padding-block: 1rem 4rem; }
+.btn { display: inline-block; font-family: var(--display); font-size: 1.15rem; padding: .85rem 2rem; background: var(--rust); color: var(--paper); text-decoration: none; border: 2px solid var(--moon); }
+.btn[aria-disabled="true"] { opacity: .65; cursor: not-allowed; }
+.cta small { display: block; margin-top: .75rem; color: #bdb8a0; }
+footer { background: var(--night); color: #8e8a77; border-top: 1px solid #2b2b48; padding-block: 1.5rem; font-size: .9rem; text-align: center; }
+</style>
+</head>
+<body>
+<div class="day">
+  <div class="wrap">
+    <a class="back" href="../index.html">← Tangobuilds</a>
+    <div class="poster">
+      <p class="wanted">WANTED</p>
+      <h1>Dust &amp; Deputies</h1>
+      <div class="reward">A Sheriff for Dustfall</div>
+      <p>Build your defenses by day, hold them by night, and get out with the loot before the desert takes you.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="half">
+    <div>
+      <div class="when">By day</div>
+      <h2>Build</h2>
+      <p>Explore a compact map around the dying railway town of Dustfall. Clear outposts, gather what you can carry and raise sentries, barricades and traps around the Core.</p>
+      <ul><li>Watchtowers, barricades, traps</li><li>Named deputies, each with one clear job</li></ul>
+    </div>
+    <div>
+      <div class="when">Every few days</div>
+      <h2>Extract</h2>
+      <p>A vehicle rolls in. Defend it while you load the loot, then decide how much risk the next night is worth.</p>
+    </div>
+  </div>
+</div>
+
+<div class="night">
+  <div class="wrap">
+    <div class="half">
+      <div>
+        <div class="when">By night</div>
+        <h2>Hold the line</h2>
+        <p>Bandits and worse come in waves. Fight from the top-down view with your revolver while your defenses do their part.</p>
+      </div>
+      <div>
+        <div class="when">Platform</div>
+        <h2>PC first</h2>
+        <p>Windows at launch with full gamepad support. Steam Deck is the target. Single-player.</p>
+      </div>
+    </div>
+    <div class="modes">
+      <div class="mode"><h3>Story</h3><div class="num">20 nights</div><p>Five acts, each with its own map, enemies and boss. About 8 to 10 hours.</p></div>
+      <div class="mode"><h3>Endless</h3><div class="num">∞ nights</div><p>A roguelike run on generated maps with blessings, contracts and leaderboards.</p></div>
+    </div>
+    <div class="cta">
+      <a class="btn" href="#" aria-disabled="true">Follow development</a>
+      <small>Working title. Early prototype.</small>
+    </div>
+  </div>
+</div>
+<footer><div class="wrap">© 2026 Tangobuilds</div></footer>
+</body>
+</html>

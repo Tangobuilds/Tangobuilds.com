@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contraband Empire · Tangobuilds</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800&family=Courier+Prime:wght@700&display=swap">
+<style>
+/* Layout: a harbour at dusk with a shipping manifest. Chunky Roblox-friendly type, crates as content blocks, a ledger that shows the trading loop. Single look by choice. */
+:root {
+  color-scheme: dark;
+  --harbour: #0d2a3a; --deep: #081c28; --crate: #c9853f; --crate-dark: #8a5626; --cash: #5fd38a; --gold: #ffcc3d; --foam: #e8f3f2; --muted: #9fbac2;
+  --display: "Lilita One", "Arial Black", sans-serif;
+  --body: "Nunito", system-ui, sans-serif;
+  --stamp: "Courier Prime", "Courier New", monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--harbour); color: var(--foam); font-family: var(--body); font-size: 1.05rem; line-height: 1.6; }
+.wrap { max-width: 62rem; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.back { display: inline-block; padding-block: 1.25rem; font-weight: 700; text-decoration: none; color: var(--muted); }
+header { padding-block: 3rem 4rem; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 2rem; align-items: center; }
+@media (max-width: 760px) { header { grid-template-columns: minmax(0,1fr); } }
+.badge { display: inline-block; font-family: var(--stamp); color: var(--deep); background: var(--cash); padding: .2rem .6rem; border-radius: 4px; font-size: .85rem; letter-spacing: .08em; }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(3rem, 10vw, 5.5rem); line-height: .9; margin: 1rem 0; color: var(--gold); text-shadow: 0 5px 0 var(--crate-dark); text-wrap: balance; }
+header p { margin: 0; font-size: 1.2rem; color: var(--muted); max-width: 30rem; }
+.manifest { background: #f4ecd8; color: #2a2116; font-family: var(--stamp); padding: 1.25rem 1.5rem; border-radius: 4px; transform: rotate(1.5deg); box-shadow: 0 12px 30px rgba(0,0,0,.35); }
+.manifest h2 { font-size: 1rem; margin: 0 0 .75rem; letter-spacing: .1em; border-bottom: 2px dashed #2a2116; padding-bottom: .5rem; }
+.manifest table { width: 100%; border-collapse: collapse; font-size: .9rem; font-variant-numeric: tabular-nums; }
+.manifest td { padding: .25rem 0; }
+.manifest td:last-child { text-align: right; }
+.manifest tr.total td { border-top: 2px solid #2a2116; padding-top: .5rem; color: #1d7a45; }
+.crates { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem; padding-bottom: 3rem; }
+.crate { background: var(--crate); color: #2b1606; border: 4px solid var(--crate-dark); border-radius: 6px; padding: 1.25rem; background-image: repeating-linear-gradient(90deg, transparent 0 46px, rgba(0,0,0,.08) 46px 50px); }
+.crate h3 { font-family: var(--display); font-weight: 400; font-size: 1.5rem; margin: 0 0 .25rem; }
+.crate p { margin: 0; font-weight: 600; }
+.dock { background: var(--deep); padding-block: 3rem; text-align: center; }
+.dock h2 { font-family: var(--display); font-weight: 400; font-size: 2rem; margin: 0 0 .5rem; }
+.dock p { color: var(--muted); margin: 0 auto 1.5rem; max-width: 34rem; }
+.btn { display: inline-block; font-family: var(--display); font-size: 1.3rem; padding: .85rem 2.2rem; background: var(--cash); color: var(--deep); border-radius: 10px; text-decoration: none; box-shadow: 0 5px 0 #2f8f55; }
+.btn[aria-disabled="true"] { opacity: .65; cursor: not-allowed; }
+.dock small { display: block; margin-top: 1rem; color: var(--muted); }
+footer { background: var(--deep); border-top: 1px solid #16384a; padding-block: 1.5rem; color: var(--muted); font-size: .9rem; text-align: center; }
+@media (prefers-reduced-motion: no-preference) { .crate { transition: transform .15s; } .crate:hover { transform: translateY(-4px) rotate(-.5deg); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../index.html">← Tangobuilds</a>
+  <header>
+    <div>
+      <span class="badge">BETA · ROBLOX</span>
+      <h1>Contraband Empire</h1>
+      <p>Start with one small dock, a handful of crates and a single route. Finish with a smuggling empire the whole server can see.</p>
+    </div>
+    <div class="manifest" aria-label="Example shipping manifest">
+      <h2>MANIFEST #0042 · EXAMPLE RUN</h2>
+      <table>
+        <tr><td>Bought: 20 crates</td><td>−$1,200</td></tr>
+        <tr><td>Route: harbour → coast</td><td>4 min</td></tr>
+        <tr><td>Sold at destination</td><td>+$2,050</td></tr>
+        <tr class="total"><td>Profit</td><td>+$850</td></tr>
+      </table>
+    </div>
+  </header>
+
+  <div class="crates">
+    <div class="crate"><h3>Buy low</h3><p>Watch the prices and pick up goods when they're cheap.</p></div>
+    <div class="crate"><h3>Ship it</h3><p>Choose a route. Boats sail on their own while you plan the next deal.</p></div>
+    <div class="crate"><h3>Reinvest</h3><p>Spend profit on bigger boats, more storage and new trade goods.</p></div>
+    <div class="crate"><h3>Show off</h3><p>Your harbour base grows where everyone on the server can see it.</p></div>
+  </div>
+</div>
+
+<section class="dock">
+  <div class="wrap">
+    <h2>Free to play on Roblox</h2>
+    <p>Up to six empires share each server. Optional purchases only.</p>
+    <a class="btn" href="#" aria-disabled="true">Play on Roblox</a>
+    <small>Link goes live with the public beta.</small>
+  </div>
+</section>
+<footer><div class="wrap">© 2026 Tangobuilds</div></footer>
+</body>
+</html>
