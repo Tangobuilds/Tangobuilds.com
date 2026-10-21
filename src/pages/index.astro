@@ -6,7 +6,6 @@ import { projects } from '../data/projects';
 import { url } from '../lib/url';
 
 const headline = ['Games', 'and', 'tools,', 'built', 'one', 'at', 'a', 'time.'];
-const ticker = ['Spotrep', 'Dust & Deputies', 'Pathfinder', 'Made in Denmark'];
 ---
 
 <Base title="Tangobuilds · Games and tools from Denmark" description="Tangobuilds is an independent studio in Denmark making games and Windows tools: Spotrep, Dust & Deputies and Pathfinder.">
@@ -35,13 +34,6 @@ const ticker = ['Spotrep', 'Dust & Deputies', 'Pathfinder', 'Made in Denmark'];
       <a class="scroll-cue" href="#work" aria-label="Scroll to projects"><span></span></a>
     </section>
 
-    <div class="ticker" aria-hidden="true">
-      <div class="track">
-        {[0, 1].map(() => (
-          <div class="run">{ticker.map((t) => <span>{t}<i>✦</i></span>)}</div>
-        ))}
-      </div>
-    </div>
 
     <section id="work" class="work">
       <div class="wrap">
@@ -191,14 +183,6 @@ const ticker = ['Spotrep', 'Dust & Deputies', 'Pathfinder', 'Made in Denmark'];
   @keyframes deal { from { opacity: 0; transform: translate(60%, 10%) rotate(20deg) scale(.8); } }
   @keyframes bob { to { transform: translate(var(--x), calc(var(--y) - 3%)) rotate(calc(var(--r) * .7)); } }
   @media (max-width: 1280px) { .stack { display: none; } }
-
-  /* Ticker */
-  .ticker { background: var(--tango); color: var(--ink-950); overflow: hidden; transform: rotate(-1.5deg); margin-block: -.5rem; position: relative; z-index: 2; box-shadow: 0 20px 40px -20px rgba(0,0,0,.6); }
-  .track { display: flex; width: max-content; animation: marquee 32s linear infinite; }
-  .run { display: flex; }
-  .run span { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: clamp(1.6rem, 3.5vw, 2.6rem); padding: .55rem 0; white-space: nowrap; display: inline-flex; align-items: center; }
-  .run i { font-style: normal; font-size: .6em; margin-inline: 1.6rem; }
-  @keyframes marquee { to { transform: translateX(-50%); } }
 
   /* Work */
   .work { padding-block: 8rem 4rem; }
