@@ -2,7 +2,7 @@
 
 ## Tobias
 - [x] Turn on GitHub Pages
-- [ ] Switch [Settings → Pages](https://github.com/Tangobuilds/Tangobuilds.com/settings/pages) → Source to **GitHub Actions** (needed for the Astro version of the site)
+- [x] Switch [Settings → Pages](https://github.com/Tangobuilds/Tangobuilds.com/settings/pages) → Source to **GitHub Actions** (needed for the Astro version of the site)
 - [ ] Buy the domain tangobuilds.com (and tangobuilds.dk, so nobody else takes it)
 - [ ] Check that the company name Tangobuilds is free on virk.dk before registering the company
 - [ ] Point the domain at GitHub Pages at your domain registrar:
