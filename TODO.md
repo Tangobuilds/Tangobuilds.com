@@ -1,7 +1,8 @@
 # To-do
 
 ## Tobias
-- [x] Turn on GitHub Pages: [Settings → Pages](https://github.com/Tangobuilds/Tangobuilds.com/settings/pages) → Source: **Deploy from a branch** → **main** / **(root)** → Save. The site then shows at https://tangobuilds.github.io/Tangobuilds.com/
+- [x] Turn on GitHub Pages
+- [ ] Switch [Settings → Pages](https://github.com/Tangobuilds/Tangobuilds.com/settings/pages) → Source to **GitHub Actions** (needed for the Astro version of the site)
 - [ ] Buy the domain tangobuilds.com (and tangobuilds.dk, so nobody else takes it)
 - [ ] Check that the company name Tangobuilds is free on virk.dk before registering the company
 - [ ] Point the domain at GitHub Pages at your domain registrar:
@@ -17,4 +18,4 @@
 - [ ] Set up the shop for Pathfinder (Lemon Squeezy or Paddle) and link the Buy and trial buttons
 - [ ] Link the real game links: www.spotrep.net (Spotrep)
 - [ ] Add real screenshots or videos to each project page
-- [ ] Add a favicon, social sharing image and a 404 page
+- [ ] Add a social sharing image

@@ -1,0 +1,83 @@
+---
+// Small "cover art" for each project, drawn in that project's own style.
+// The inner element carries a view-transition name that matches the hero
+// visual on the project page, so it morphs when you click through.
+import { url } from '../lib/url';
+import '@fontsource/rye/400';
+import '@fontsource/stardos-stencil/700';
+import '@fontsource-variable/fraunces';
+
+interface Props { slug: string; morph?: boolean }
+const { slug, morph = true } = Astro.props;
+const name = (n: string) => (morph ? n : undefined);
+---
+
+<div class={`cover cover-${slug}`} aria-hidden="true">
+  {slug === 'spotrep' && (
+    <div class="sr" transition:name={name('visual-spotrep')}>
+      <img src={url('assets/spotrep-leopard2.webp')} alt="" width="1600" height="1067" loading="lazy" decoding="async" />
+      <span class="sr-reticle"></span>
+      <span class="sr-timer">00:14</span>
+      <span class="sr-name">SPOTREP</span>
+    </div>
+  )}
+  {slug === 'dust-and-deputies' && (
+    <div class="dd">
+      <span class="dd-sun"></span>
+      <div class="dd-poster" transition:name={name('visual-dust-and-deputies')}>
+        <i>WANTED</i>
+        <b>Dust &amp; Deputies</b>
+        <small>A Sheriff for Dustfall</small>
+      </div>
+    </div>
+  )}
+  {slug === 'pathfinder' && (
+    <div class="pf">
+      <div class="pf-win" transition:name={name('visual-pathfinder')}>
+        <div class="pf-head"><img src={url('assets/pathfinder-icon.png')} alt="" width="20" height="20" />Inbox <em>23 files</em></div>
+        <div class="pf-row"><span>scan0042.pdf</span><span class="pf-to">Finance\2026-09 Electricity invoice.pdf</span></div>
+        <div class="pf-row"><span>IMG_8817.HEIC</span><span class="pf-to">Photos\2026-08-14 Skagen.heic</span></div>
+        <div class="pf-row"><span>setup_x64 (3).exe</span><span class="pf-to">Already installed · Recycle Bin</span></div>
+      </div>
+    </div>
+  )}
+</div>
+
+<style>
+  .cover { position: relative; width: 100%; aspect-ratio: 4 / 3; max-width: 100%; overflow: hidden; border-radius: 18px; isolation: isolate; }
+  .cover > div { position: absolute; inset: 0; }
+
+  /* Spotrep */
+  .sr { background: #1f2318; }
+  .sr img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.7) contrast(1.05); transform: scale(1.06); transition: transform 1.2s var(--ease-out); }
+  :global(.card:hover) .sr img { transform: scale(1.14); }
+  .sr::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(18,20,13,.85), transparent 55%); }
+  .sr-reticle { position: absolute; inset: 22% 30%; z-index: 1; border: 1.5px solid rgba(230,220,192,.85); border-radius: 50%; }
+  .sr-reticle::before, .sr-reticle::after { content: ''; position: absolute; background: rgba(230,220,192,.85); }
+  .sr-reticle::before { left: 50%; top: -20%; bottom: -20%; width: 1.5px; }
+  .sr-reticle::after { top: 50%; left: -20%; right: -20%; height: 1.5px; }
+  .sr-timer { position: absolute; z-index: 2; right: 1.1rem; top: 1rem; font-family: var(--mono); color: #ff6b55; font-size: .9rem; }
+  .sr-name { position: absolute; z-index: 2; left: 1.2rem; bottom: .9rem; font-family: 'Stardos Stencil', Impact, sans-serif; font-weight: 700; font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: .05em; color: #e6dcc0; line-height: 1; }
+
+  /* Dust & Deputies */
+  .dd { background: linear-gradient(#f6cf86 0%, #eaa45a 52%, #1c1a33 52%, #12122a 100%); display: grid; place-items: center; }
+  .dd-sun { position: absolute; width: 34%; aspect-ratio: 1; left: 58%; top: 20%; border-radius: 50%; background: #ffe2a3; box-shadow: 0 0 80px 20px rgba(255,214,140,.55); transition: transform 1.2s var(--ease-out); }
+  :global(.card:hover) .dd-sun { transform: translateY(28%); }
+  .dd-poster { position: relative; background: #f6e7c8; color: #2b1a10; border: 3px solid #2b1a10; box-shadow: 7px 7px 0 #2b1a10; padding: 1rem 1.6rem 1.1rem; text-align: center; transform: rotate(-3deg); transition: transform .8s var(--ease-out); inset: auto; }
+  :global(.card:hover) .dd-poster { transform: rotate(1deg) scale(1.04); }
+  .dd-poster i { display: block; font-family: 'Rye', Georgia, serif; font-style: normal; color: #a8401f; font-size: clamp(1.1rem, 2.6vw, 1.5rem); letter-spacing: .1em; }
+  .dd-poster b { display: block; font-family: 'Rye', Georgia, serif; font-weight: 400; font-size: clamp(1.5rem, 4vw, 2.5rem); line-height: 1.05; margin: .25rem 0; }
+  .dd-poster small { font-family: Georgia, serif; text-transform: uppercase; letter-spacing: .12em; font-size: .7rem; }
+
+  /* Pathfinder */
+  .pf { background: radial-gradient(circle at 30% 20%, #2a7a62, #123a30 70%); display: grid; place-items: center; }
+  .pf-win { position: relative; inset: auto; width: min(86%, 26rem); background: #fff; color: #18221f; border-radius: 12px; box-shadow: 0 30px 60px -25px rgba(0,0,0,.6); padding: .9rem; display: flex; flex-direction: column; gap: .5rem; transition: transform .8s var(--ease-out); }
+  :global(.card:hover) .pf-win { transform: translateY(-6px) rotate(-1deg); }
+  .pf-head { display: flex; align-items: center; gap: .5rem; font-family: 'Fraunces Variable', Georgia, serif; font-weight: 600; font-size: 1.05rem; }
+  .pf-head img { width: 20px; height: 20px; }
+  .pf-head em { margin-left: auto; font-style: normal; font-family: var(--mono); font-size: .7rem; color: #5d6b66; }
+  .pf-row { display: flex; flex-direction: column; gap: .1rem; border: 1px solid #dbe2df; border-radius: 7px; padding: .45rem .65rem; font-family: var(--mono); font-size: .7rem; min-width: 0; }
+  .pf-row span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pf-row span:first-child { color: #8a9893; text-decoration: line-through; }
+  .pf-to { color: #1f7a5c; }
+</style>

@@ -1,0 +1,150 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectNav from '../../components/ProjectNav.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import '@fontsource/rye/400';
+import '@fontsource/zilla-slab/400';
+import '@fontsource/zilla-slab/600';
+import '@fontsource/zilla-slab/700';
+---
+
+<Base title="Dust & Deputies · Tangobuilds" description="Dust & Deputies is a top-down western with tower defense and extraction. Build by day, hold the line by night." theme="theme-dd">
+  <main id="main">
+    <section class="sky" data-sky>
+      <div class="stars" aria-hidden="true"></div>
+      <div class="sun" aria-hidden="true"></div>
+      <div class="mesa" aria-hidden="true"></div>
+      <div class="tumbleweed" aria-hidden="true"></div>
+      <div class="wrap sky-inner">
+        <div class="poster" transition:name="visual-dust-and-deputies">
+          <p class="wanted">WANTED</p>
+          <h1>Dust &amp; Deputies</h1>
+          <div class="reward">A Sheriff for Dustfall</div>
+          <p>Build your defenses by day, hold them by night, and get out with the loot before the desert takes you.</p>
+          <span class="nail n1"></span><span class="nail n2"></span>
+        </div>
+      </div>
+      <p class="scrollhint" aria-hidden="true">Scroll to sundown ↓</p>
+    </section>
+
+    <section class="loop">
+      <div class="wrap steps">
+        <article data-reveal>
+          <span class="when">By day</span>
+          <h2>Build</h2>
+          <p>Explore a compact map around the dying railway town of Dustfall. Clear outposts, gather what you can carry and raise sentries, barricades and traps around the Core.</p>
+        </article>
+        <article data-reveal data-delay="120">
+          <span class="when">By night</span>
+          <h2>Hold the line</h2>
+          <p>Bandits and worse come in waves. Fight from the top-down view with your revolver while your defenses do their part. Named deputies join you, each with one clear job.</p>
+        </article>
+        <article data-reveal data-delay="240">
+          <span class="when">Every few days</span>
+          <h2>Extract</h2>
+          <p>A vehicle rolls in. Defend it while you load the loot, then decide how much risk the next night is worth.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="modes">
+      <div class="wrap mode-grid">
+        <div class="mode" data-reveal="scale">
+          <h3>Story</h3>
+          <div class="num"><span data-count="20">20</span> nights</div>
+          <p>Five acts, each with its own map, enemies and boss. About 8 to 10 hours.</p>
+        </div>
+        <div class="mode" data-reveal="scale" data-delay="120">
+          <h3>Endless</h3>
+          <div class="num">∞ nights</div>
+          <p>A roguelike run on generated maps with blessings, contracts and leaderboards.</p>
+        </div>
+      </div>
+      <div class="wrap status" data-reveal>
+        <span class="btn btn-soon">In development</span>
+        <p>Working title. PC first, with full gamepad support and Steam Deck as the target. Single-player.</p>
+      </div>
+    </section>
+  </main>
+  <ProjectNav slug="dust-and-deputies" />
+  <SiteFooter />
+</Base>
+
+<script>
+  // Sundown: as the sky section scrolls away, the sun sinks and the stars come out.
+  function sundown() {
+    const sky = document.querySelector<HTMLElement>('[data-sky]');
+    if (!sky) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const r = sky.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, -r.top / (r.height * 0.75)));
+      sky.style.setProperty('--dusk', p.toFixed(3));
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    document.addEventListener('astro:before-swap', () => window.removeEventListener('scroll', onScroll), { once: true });
+  }
+  document.addEventListener('astro:page-load', sundown);
+</script>
+
+<style>
+  :global(body.theme-dd) {
+    --page-bg: #14142a; --page-fg: #ece6cc;
+    --hdr-fg: #2b1a10; --hdr-bg: rgba(246,231,200,.85); --hdr-line: rgba(43,26,16,.2);
+    --ftr-line: #2b2b48; --ftr-fg: #9a967f; --ftr-strong: #ece6cc;
+    --dd-paper: #f6e7c8; --dd-ink: #2b1a10; --dd-rust: #b2461f; --dd-ember: #f08a5d;
+    font-family: 'Zilla Slab', Rockwell, Georgia, serif;
+    font-size: 1.12rem;
+  }
+  .rye { font-family: 'Rye', Rockwell, Georgia, serif; }
+
+  .sky {
+    --dusk: 0;
+    position: relative; min-height: 100svh; overflow: hidden; display: grid; place-items: center;
+    padding-block: 7rem 6rem;
+    background: linear-gradient(
+      color-mix(in oklab, #f6cf86 calc((1 - var(--dusk)) * 100%), #191935),
+      color-mix(in oklab, #eaa45a calc((1 - var(--dusk)) * 100%), #3a2440) 70%,
+      color-mix(in oklab, #d98845 calc((1 - var(--dusk)) * 100%), #14142a));
+  }
+  .stars { position: absolute; inset: 0; opacity: var(--dusk); background-image: radial-gradient(1.5px 1.5px at 12% 18%, #fff, transparent), radial-gradient(1px 1px at 30% 8%, #fff, transparent), radial-gradient(1.5px 1.5px at 52% 22%, #fff, transparent), radial-gradient(1px 1px at 68% 12%, #fff, transparent), radial-gradient(2px 2px at 84% 26%, #fff, transparent), radial-gradient(1px 1px at 92% 6%, #fff, transparent), radial-gradient(1px 1px at 6% 36%, #fff, transparent), radial-gradient(1.5px 1.5px at 40% 34%, #fff, transparent); }
+  .sun { position: absolute; width: min(42vw, 26rem); aspect-ratio: 1; right: 8%; top: 14%; border-radius: 50%; background: radial-gradient(circle, #fff3cf, #ffd28a 60%, #ffb35c); box-shadow: 0 0 120px 40px rgba(255,200,120,.5); transform: translateY(calc(var(--dusk) * 70vh)); opacity: calc(1 - var(--dusk) * .6); }
+  .mesa { position: absolute; left: 0; right: 0; bottom: 0; height: 26%; background: #2b1a10; clip-path: polygon(0 55%, 8% 50%, 14% 20%, 26% 18%, 31% 52%, 46% 58%, 58% 40%, 63% 12%, 76% 10%, 80% 44%, 100% 50%, 100% 100%, 0 100%); opacity: .9; }
+  .tumbleweed { position: absolute; bottom: 9%; left: -8rem; width: 3.2rem; aspect-ratio: 1; border-radius: 50%; border: 3px dotted #7a5532; box-shadow: inset 0 0 0 6px rgba(122,85,50,.35); animation: roll 11s linear 2s infinite; }
+  @keyframes roll { 0% { transform: translateX(0) rotate(0); } 60%, 100% { transform: translateX(calc(100vw + 16rem)) rotate(1080deg); } }
+  @media (prefers-reduced-motion: reduce) { .tumbleweed { display: none; } }
+
+  .sky-inner { position: relative; display: grid; place-items: center; }
+  .poster { position: relative; width: min(100%, 36rem); background: var(--dd-paper); color: var(--dd-ink); border: 3px solid var(--dd-ink); box-shadow: 10px 10px 0 var(--dd-ink); padding: 2.5rem 1.75rem 2.75rem; text-align: center; transform-origin: 50% 0; animation: swing 2.2s var(--ease-out) .2s both; background-image: radial-gradient(ellipse at 30% 20%, rgba(160,110,60,.12), transparent 60%), radial-gradient(ellipse at 80% 90%, rgba(160,110,60,.16), transparent 50%); }
+  @keyframes swing { 0% { transform: rotate(-14deg) translateY(-30px); opacity: 0; } 35% { opacity: 1; } 55% { transform: rotate(5deg); } 75% { transform: rotate(-3deg); } 100% { transform: rotate(-1.5deg); } }
+  .nail { position: absolute; top: .8rem; width: .7rem; height: .7rem; border-radius: 50%; background: #5a4a3a; box-shadow: inset -2px -2px 0 rgba(0,0,0,.35); }
+  .n1 { left: .9rem; } .n2 { right: .9rem; }
+  .wanted { font-family: 'Rye', Georgia, serif; font-size: clamp(3rem, 12vw, 5.2rem); line-height: 1; color: var(--dd-rust); margin: 0; letter-spacing: .05em; }
+  .poster h1 { font-family: 'Rye', Georgia, serif; font-weight: 400; font-size: clamp(2.2rem, 8vw, 3.6rem); line-height: 1.05; margin: 1rem 0; text-wrap: balance; }
+  .reward { font-weight: 700; text-transform: uppercase; letter-spacing: .14em; border-block: 2px solid var(--dd-ink); padding-block: .55rem; margin: 1.25rem 0; }
+  .poster p { margin: 0; color: #6b4a33; }
+  .scrollhint { position: absolute; bottom: 1.25rem; left: 0; right: 0; text-align: center; margin: 0; color: #f6e7c8; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; font-size: .85rem; opacity: calc(1 - var(--dusk) * 2); }
+
+  .loop { padding-block: 6rem 4rem; }
+  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
+  @media (max-width: 860px) { .steps { grid-template-columns: minmax(0, 1fr); } }
+  .steps article { border-top: 2px solid var(--dd-ember); padding-top: 1.25rem; }
+  .when { font-weight: 700; text-transform: uppercase; letter-spacing: .16em; font-size: .82rem; color: var(--dd-ember); }
+  .steps h2 { font-family: 'Rye', Georgia, serif; font-weight: 400; font-size: clamp(2rem, 4vw, 2.6rem); margin: .4rem 0 .75rem; }
+  .steps p { margin: 0; color: #c9c2a6; }
+
+  .modes { padding-block: 2rem 6rem; }
+  .mode-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+  @media (max-width: 680px) { .mode-grid { grid-template-columns: minmax(0, 1fr); } }
+  .mode { border: 1px solid #3b3b5c; padding: 2rem; background: rgba(255,255,255,.02); transition: border-color .3s, transform .4s var(--ease-out); }
+  .mode:hover { border-color: var(--dd-ember); transform: translateY(-4px); }
+  .mode h3 { font-family: 'Rye', Georgia, serif; font-weight: 400; font-size: 1.7rem; margin: 0 0 .5rem; }
+  .num { font-size: clamp(2.6rem, 6vw, 3.6rem); font-weight: 700; color: var(--dd-ember); line-height: 1; font-variant-numeric: tabular-nums; }
+  .mode p { margin: .75rem 0 0; color: #bdb8a0; }
+  .status { display: flex; align-items: center; gap: 1rem 1.5rem; flex-wrap: wrap; margin-top: 2.5rem; }
+  .status p { margin: 0; color: #bdb8a0; max-width: 34rem; }
+</style>
