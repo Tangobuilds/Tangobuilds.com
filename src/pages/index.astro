@@ -5,7 +5,7 @@ import SiteFooter from '../components/SiteFooter.astro';
 import { projects } from '../data/projects';
 import { url } from '../lib/url';
 
-const headline = ['Games', 'and', 'tools,', 'built', 'one', 'at', 'a', 'time.'];
+const headline = ['Games', 'worth', 'playing.', 'Tools', 'worth', 'keeping.'];
 ---
 
 <Base title="Tangobuilds · Games and tools from Denmark" description="Tangobuilds is an independent studio in Denmark making games and Windows tools: Spotrep, Dust & Deputies and Pathfinder.">
@@ -164,7 +164,7 @@ const headline = ['Games', 'and', 'tools,', 'built', 'one', 'at', 'a', 'time.'];
   h1 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: clamp(3.4rem, 11vw, 9.5rem); line-height: .86; letter-spacing: -.005em; margin: 0; max-width: 11ch; }
   h1 .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .06em; margin-right: .22em; }
   h1 .w > span { display: inline-block; animation: rise 1.1s var(--ease-out) both; animation-delay: calc(var(--i) * 70ms + 150ms); }
-  h1 .w:nth-child(3) > span, h1 .w:nth-child(8) > span { color: var(--tango); }
+  h1 .w:nth-child(3) > span, h1 .w:nth-child(6) > span { color: var(--tango); }
   @keyframes rise { from { transform: translateY(105%); } to { transform: none; } }
   .lead { max-width: 38rem; font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--muted); margin: 2rem 0 2.25rem; animation: fade 1s var(--ease-out) .8s both; }
   .actions { display: flex; gap: .85rem; flex-wrap: wrap; animation: fade 1s var(--ease-out) 1s both; }
