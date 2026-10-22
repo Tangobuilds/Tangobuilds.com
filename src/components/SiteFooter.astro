@@ -8,7 +8,7 @@ const { credit } = Astro.props;
 
 <footer class="site-footer">
   <div class="wrap row">
-    <a class="logo" href={url('')}>Tango<b>builds</b></a>
+    <a class="logo" href={url('')}>Tangobuilds</a>
     <nav aria-label="Footer">
       {projects.map((p) => <a href={url(`projects/${p.slug}/`)}>{p.name}</a>)}
     </nav>
@@ -20,8 +20,7 @@ const { credit } = Astro.props;
 <style>
   .site-footer { border-top: 1px solid var(--ftr-line, var(--line)); color: var(--ftr-fg, var(--muted)); background: var(--ftr-bg, transparent); padding-block: 2.25rem; font-size: .9rem; }
   .row { display: flex; align-items: center; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap; }
-  .logo { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 1.3rem; letter-spacing: .03em; text-decoration: none; color: var(--ftr-strong, var(--fg)); }
-  .logo b { color: var(--tango); font-weight: 800; }
+  .logo { font-family: var(--display); font-weight: 800; font-size: 1.4rem; letter-spacing: .02em; text-decoration: none; color: var(--ftr-strong, var(--fg)); }
   nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
   nav a { text-decoration: none; }
   nav a:hover { color: var(--ftr-strong, var(--fg)); text-decoration: underline; }

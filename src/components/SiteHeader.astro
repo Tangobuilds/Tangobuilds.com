@@ -10,7 +10,7 @@ const here = Astro.url.pathname.replace(/\/$/, '');
   <div class="wrap bar">
     <a class="logo" href={url('')} aria-label="Tangobuilds home">
       <span class="mark" aria-hidden="true">T</span>
-      <span class="word">Tango<b>builds</b></span>
+      <span class="word">Tangobuilds</span>
     </a>
     <nav aria-label="Projects">
       {projects.map((p) => {
@@ -45,8 +45,7 @@ const here = Astro.url.pathname.replace(/\/$/, '');
     transition: transform .5s var(--ease-out);
   }
   .logo:hover .mark { transform: rotate(-12deg) scale(1.06); }
-  .word { font-family: var(--display); font-weight: 800; font-size: 1.35rem; letter-spacing: .03em; text-transform: uppercase; }
-  .word b { color: var(--tango); font-weight: 800; }
+  .word { font-family: var(--display); font-weight: 800; font-size: 1.5rem; letter-spacing: .02em; }
   nav { display: flex; gap: .25rem; }
   nav a {
     position: relative; text-decoration: none; font-size: .9rem; font-weight: 500;

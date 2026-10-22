@@ -14,7 +14,7 @@ const headline = ['Games', 'worth', 'playing.', 'Tools', 'worth', 'keeping.'];
       <canvas class="field" aria-hidden="true"></canvas>
       <div class="glow" aria-hidden="true"></div>
       <div class="wrap hero-inner">
-        <p class="callsign"><span class="dot"></span>T · Tango · Independent studio, Denmark</p>
+        <p class="callsign"><span class="dot"></span>Tangobuilds · Independent studio, Denmark</p>
         <h1 aria-label={headline.join(' ')}>
           {headline.map((w, i) => (
             <span class="w" aria-hidden="true"><span style={`--i:${i}`}>{w}</span></span>
@@ -159,7 +159,7 @@ const headline = ['Games', 'worth', 'playing.', 'Tools', 'worth', 'keeping.'];
   .glow { position: absolute; width: 60rem; height: 60rem; right: -20rem; top: -26rem; background: radial-gradient(circle, rgba(255,106,43,.22), transparent 62%); pointer-events: none; animation: drift 14s ease-in-out infinite alternate; }
   @keyframes drift { to { transform: translate(-6rem, 5rem) scale(1.1); } }
   .hero-inner { position: relative; }
-  .callsign { display: inline-flex; align-items: center; gap: .6rem; font-family: var(--mono); font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin: 0 0 1.75rem; }
+  .callsign { display: inline-flex; align-items: center; gap: .6rem; font-family: var(--mono); font-size: .85rem; letter-spacing: .04em; color: var(--muted); margin: 0 0 1.75rem; }
   .callsign .dot { width: .55rem; height: .55rem; border-radius: 50%; background: var(--tango); box-shadow: 0 0 14px var(--tango); }
   h1 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: clamp(3.4rem, 11vw, 9.5rem); line-height: .86; letter-spacing: -.005em; margin: 0; max-width: 11ch; }
   h1 .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .06em; margin-right: .22em; }
